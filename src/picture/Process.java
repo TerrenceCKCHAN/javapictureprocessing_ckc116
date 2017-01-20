@@ -16,28 +16,23 @@ public class Process {
     public Picture getPic() {
         return pic;
     }
-
     public void invert() {
-        int width = pic.getWidth();
+        int width  = pic.getWidth();
         int height = pic.getHeight();
-
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Color pixelColor = pic.getPixel(x, y);
-                int newred = 255 - pixelColor.getBlue();
+                int newred   = 255 - pixelColor.getBlue();
                 int newgreen = 255 - pixelColor.getGreen();
-                int newblue = 255 - pixelColor.getRed();
+                int newblue  = 255 - pixelColor.getRed();
                 Color newpixelColor = new Color(newred, newgreen, newblue);
                 pic.setPixel(x, y, newpixelColor);
-
             }
         }
     }
-
     public void grayscale() {
-        int width = pic.getWidth();
+        int width  = pic.getWidth();
         int height = pic.getHeight();
-
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Color pixelColor = pic.getPixel(x, y);
@@ -47,7 +42,6 @@ public class Process {
             }
         }
     }
-
     public void rotate(String angle) {
         int width  = pic.getWidth();
         int height = pic.getHeight();
@@ -65,7 +59,7 @@ public class Process {
                     case "270":
                         newPic.setPixel(height - y - 1, width - x - 1, pixelcolor);
                         break;
-                    }
+                }
             }
         } pic = newPic;
     }
@@ -133,22 +127,25 @@ public class Process {
         int height = pic.getHeight();
         Picture newPic = Utils.createPicture(width, height);
 
-
-        for (int x = 1; x < width - 1; x++) {
-            for (int y = 1; y < height - 1; y++) {
-                int red = 0;
-                int green = 0;
-                int blue = 0;
-                for (int i = x - 1; i < x + 2; i++) {
-                    for (int j = y - 1; j < y + 2; j++) {
-                        Color currentPix = pic.getPixel(i, j);
-                        blue = blue + currentPix.getBlue();
-                        green = green + currentPix.getGreen();
-                        red = red + currentPix.getRed();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+                    newPic.setPixel(x, y, pic.getPixel(x, y));
+                } else {
+                    int red = 0;
+                    int green = 0;
+                    int blue = 0;
+                    for (int i = x - 1; i < x + 2; i++) {
+                        for (int j = y - 1; j < y + 2; j++) {
+                            Color currentPix = pic.getPixel(i, j);
+                            blue = blue + currentPix.getBlue();
+                            green = green + currentPix.getGreen();
+                            red = red + currentPix.getRed();
+                        }
                     }
+                    Color newColor = new Color(red / 9, green / 9, blue / 9);
+                    newPic.setPixel(x, y, newColor);
                 }
-                Color newColor = new Color(red / 9, green / 9, blue / 9);
-                newPic.setPixel(x, y, newColor);
             }
         } pic = newPic;
     }

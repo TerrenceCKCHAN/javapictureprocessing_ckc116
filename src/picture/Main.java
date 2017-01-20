@@ -38,9 +38,7 @@ public class Main {
             default:
                 process.getPic();
         }
-
-
-//    System.err.println("TODO: Implement main");
     }
-
 }
+// running the code in Command Prompt:
+// java -cp out/production/javapictureprocessing_ckc116 picture.Main blur images/bwpatterns64x64.png images/random1.png
