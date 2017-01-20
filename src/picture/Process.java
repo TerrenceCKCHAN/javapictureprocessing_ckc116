@@ -36,33 +36,52 @@ public class Process {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Color pixelColor = pic.getPixel(x, y);
-                int avg = (pixelColor.getBlue() + pixelColor.getGreen() + pixelColor.getBlue()) / 3;
+                int avg = (pixelColor.getRed() + pixelColor.getGreen() + pixelColor.getBlue()) / 3;
                 Color newpixelColor = new Color(avg, avg, avg);
                 pic.setPixel(x, y, newpixelColor);
             }
         }
     }
+
+
+
     public void rotate(String angle) {
-        int width  = pic.getWidth();
+        int width = pic.getWidth();
         int height = pic.getHeight();
-        Picture newPic = Utils.createPicture(width, height);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                Color pixelcolor = pic.getPixel(x, y);
-                switch (angle) {
-                    case "90":
+        switch (angle) {
+            case "90":
+                Picture newPic = Utils.createPicture(height, width);
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        Color pixelcolor = pic.getPixel(x, y);
                         newPic.setPixel(height - y - 1, x, pixelcolor);
-                        break;
-                    case "180":
-                        newPic.setPixel(width - x - 1, height - y - 1, pixelcolor);
-                        break;
-                    case "270":
-                        newPic.setPixel(height - y - 1, width - x - 1, pixelcolor);
-                        break;
+                    }
                 }
-            }
-        } pic = newPic;
+                pic = newPic;
+                break;
+            case "180":
+                Picture newPic1 = Utils.createPicture(width, height);
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        Color pixelcolor = pic.getPixel(x, y);
+                        newPic1.setPixel(width - x - 1, height - y - 1, pixelcolor);
+                    }
+                }
+                pic = newPic1;
+                break;
+            case "270":
+                Picture newPic2 = Utils.createPicture(height, width);
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        Color pixelcolor = pic.getPixel(x, y);
+                        newPic2.setPixel(y , width - x - 1, pixelcolor);
+                    }
+                }
+                pic = newPic2;
+                break;
+        }
     }
+
 
     public void flip(String orientation) {
         int width = pic.getWidth();
