@@ -22,9 +22,9 @@ public class Process {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Color pixelColor = pic.getPixel(x, y);
-                int newred   = 255 - pixelColor.getBlue();
+                int newred   = 255 - pixelColor.getRed();
                 int newgreen = 255 - pixelColor.getGreen();
-                int newblue  = 255 - pixelColor.getRed();
+                int newblue  = 255 - pixelColor.getBlue();
                 Color newpixelColor = new Color(newred, newgreen, newblue);
                 pic.setPixel(x, y, newpixelColor);
             }
